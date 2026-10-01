@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+.vercel
+*.log
+.DS_Store
+*.local
+.codegraph/
+graphify-out/
+.agents/
+tsconfig.tsbuildinfo

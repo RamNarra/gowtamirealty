@@ -1,0 +1,653 @@
+/* ==========================================================================
+   Paged Media & Standard ISO A4 Sheet Definition
+   ========================================================================== */
+@page {
+  size: 210mm 297mm;
+  margin: 0;
+}
+
+/* ==========================================================================
+   CSS Variables & Design Tokens (Grounded in Goutami Identity SVG)
+   ========================================================================== */
+:root {
+  /* Brand Colors extracted from SVG source */
+  --goutami-primary: #242052;     /* Deep corporate navy/indigo */
+  --goutami-secondary: #241f51;   /* Rich shadow tone */
+  --goutami-accent-gray: #d1d3d4; /* Precision technical gray */
+  
+  /* Typographic Ink Tokens */
+  --ink-primary: #19182a;         /* High readability charcoal-navy */
+  --ink-secondary: #3b394d;       /* Subtitle and headings */
+  --ink-tertiary: #5d5b70;        /* Office address and contact text */
+  --ink-subtle: #7a788d;          /* Statutory notes and metadata */
+  --ink-hairline: #cfcee0;        /* Hairline structural separation */
+
+  /* Surface */
+  --paper-white: #ffffff;
+  --paper-warm-v3: #fcfbfa;       /* Very subtle luxury warm white for V3 screen preview */
+  --canvas-bg: #e5e7ec;           /* Desk backdrop */
+
+  /* Typography */
+  --font-corporate: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* ==========================================================================
+     EXACT POSITIONING CONTROLS (X & Y AXIS MANUAL ADJUSTMENTS)
+     Change these values directly in CSS - updates reflect instantly!
+     ========================================================================== */
+  /* Top Brand Lockup Group (Logo + Text together) */
+  --header-group-x: -5px;     /* Whole top brand lockup horizontal shift (+ right, - left) */
+  --header-group-y: 0px;     /* Whole top brand lockup vertical shift (+ down, - up) */
+
+  /* Individual Fine-Tuning within Top Lockup */
+  --logo-x: 7px;             /* Logo horizontal shift (+ right, - left) */
+  --logo-y: -7px;            /* Logo vertical shift (+ down, - up) */
+  --logo-size: 56px;         /* Logo height */
+
+  --goutami-x: 3.5px;        /* GOUTAMI text horizontal shift */
+  --goutami-y: -2px;         /* GOUTAMI text vertical shift (+ down, - up) */
+
+  --infra-x: 0px;            /* INFRASTRUCTURE text horizontal shift */
+  --infra-y: -3px;           /* INFRASTRUCTURE text vertical shift (+ down, - up) */
+
+  /* Master V3 Header Controls */
+  --v3-logo-y: -6px;          /* V3 Logo vertical shift (+ down, - up) */
+  --v3-logo-x: 0px;           /* V3 Logo horizontal shift */
+  --v3-logo-size: 64px;       /* V3 Logo height */
+  --v3-header-y: 0px;         /* Entire V3 header block vertical shift */
+  --v3-tagline-x: 10px;       /* V3 Tagline horizontal shift (+ right, - left) */
+
+  /* Watermark Controls */
+  --watermark-x: -25px;      /* Watermark horizontal shift */
+  --watermark-y: -20px;      /* Watermark vertical shift (+ down, - up) */
+  --watermark-size: 125mm;   /* Watermark diameter / width */
+
+  /* Footer Controls */
+  --footer-y: 15px;          /* Whole footer vertical shift (+ down, - up) */
+  --footer-font-size: 6.9pt;
+  --footer-rule-height: 0.75pt;
+  --footer-gap: 5px;
+}
+
+/* ==========================================================================
+   Screen Preview Canvas Setup
+   ========================================================================== */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--canvas-bg);
+  font-family: var(--font-corporate);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.preview-viewport {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60px;
+}
+
+/* Document Stage Container */
+.canvas-stage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* Exact Physical A4 Sheet Canvas
+   Margins: 15mm Left/Right Live Area, 13mm Top/Bottom Safe Area */
+.document-page {
+  width: 210mm;
+  min-height: 297mm;
+  height: 297mm;
+  background-color: var(--paper-white);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(25, 24, 42, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Refined Compact Letterhead Margins: 8mm Top (tight top margin), 16mm Left/Right, 10mm Bottom */
+.doc-variant-variant3,
+.doc-variant-sketch2 {
+  background-color: var(--paper-warm-v3);
+  padding: 8mm 16mm 10mm 16mm;
+}
+
+.doc-variant-variant4 {
+  background-color: var(--paper-white);
+  padding: 8mm 16mm 10mm 16mm;
+}
+
+/* Internal Layout Composition */
+.doc-header-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+}
+
+.doc-body-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.doc-footer-zone {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 2;
+  transform: translateY(var(--footer-y));
+}
+
+/* ==========================================================================
+   Header Component: Centered Side-by-Side Brand Signature (Big Logo Left, Text Right)
+   ========================================================================== */
+.header-horizontal-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 1mm;
+}
+
+.brand-lockup-sidebyside {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transform: translate(var(--header-group-x), var(--header-group-y));
+}
+
+.logo-wrapper-big {
+  height: var(--logo-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(var(--logo-x), var(--logo-y));
+}
+
+.brand-logotype-sidebyside {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.brand-title-sidebyside {
+  font-size: 21pt;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--goutami-primary);
+  text-transform: uppercase;
+  line-height: 1.05;
+  transform: translate(var(--goutami-x), var(--goutami-y));
+  display: inline-block;
+}
+
+.brand-subtitle-sidebyside {
+  font-size: 8.5pt;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+  margin-top: 4px;
+  line-height: 1;
+  transform: translate(var(--infra-x), var(--infra-y));
+  display: inline-block;
+}
+
+/* Horizontal Divider Rule: 1mm below brand block */
+.header-rule-horizontal {
+  width: 100%;
+  height: 0.8pt;
+  background-color: var(--goutami-primary);
+  margin-top: 1mm;
+}
+
+/* ==========================================================================
+/* ==========================================================================
+   LAYOUT 2: MASTER CORPORATE EDITORIAL HEADER (V3)
+   Clean Wordmark + Balanced Emblem + De-duplicated Sub-Bar
+   ========================================================================== */
+.header-layout-2 {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 1mm;
+}
+
+.header-layout-2 .header-rule-horizontal {
+  margin-top: 2.5mm;
+}
+
+.layout2-brand-lockup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  transform: translateY(var(--v3-header-y));
+}
+
+.layout2-logo-wrap {
+  height: var(--v3-logo-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transform: translate(var(--v3-logo-x), var(--v3-logo-y));
+}
+
+.layout2-text-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.layout2-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.layout2-title-main {
+  font-size: 21pt;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--goutami-primary);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.layout2-title-llp {
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--goutami-primary);
+  opacity: 0.85;
+  margin-left: 2px;
+  line-height: 1;
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+
+.layout2-tagline-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 7.2pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+  letter-spacing: 0.16em;
+  transform: translateX(var(--v3-tagline-x));
+}
+
+.layout2-tagline-text {
+  letter-spacing: 0.18em;
+}
+
+.layout2-tagline-sep {
+  color: var(--ink-hairline);
+  font-weight: 400;
+}
+
+.layout2-llpin-text {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--goutami-primary);
+}
+
+/* ==========================================================================
+   DE-DUPLICATED V3 FOOTER COMPONENT
+   Clean Single Corporate Office Focus • Industry Standard Hierarchy
+   ========================================================================== */
+.footer-v3-deduped {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-v3-deduped .footer-top-rule-compact {
+  height: 1pt;
+  background-color: var(--goutami-primary);
+  margin-bottom: 7px;
+}
+
+.footer-v3-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.footer-v3-row-office {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 8.4pt;
+  color: var(--ink-secondary);
+}
+
+.footer-v3-office-tag {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--goutami-primary);
+  font-size: 8pt;
+}
+
+.footer-v3-office-address {
+  font-weight: 500;
+  color: var(--ink-primary);
+  letter-spacing: 0.03em;
+}
+
+.footer-v3-row-contacts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 4px;
+  border-top: 0.5pt solid rgba(220, 224, 235, 0.8);
+  font-size: 8pt;
+  font-weight: 500;
+  color: var(--ink-secondary);
+}
+
+.footer-v3-bullet {
+  color: var(--goutami-primary);
+  font-size: 5.5pt;
+}
+
+/* ==========================================================================
+   Watermark Layer (Pure Exact Center of Open Writing Field)
+   ========================================================================== */
+.watermark-container-locked {
+  position: absolute;
+  top: calc(50% + var(--watermark-y));
+  left: calc(50% + var(--watermark-x));
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.watermark-container-locked svg {
+  width: var(--watermark-size) !important;
+  height: auto !important;
+}
+
+/* ==========================================================================
+   Footer Component: Refined Balanced Corporate Footer
+   ========================================================================== */
+.footer-top-rule-compact {
+  width: 100%;
+  height: 0.75pt;
+  background-color: var(--goutami-primary);
+  margin-bottom: 6px;
+}
+
+.footer-content-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 7.2pt;
+  color: var(--ink-tertiary);
+  line-height: 1.35;
+}
+
+.footer-compact-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  gap: 12px;
+}
+
+.footer-compact-left {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.footer-compact-legal {
+  font-weight: 700;
+  font-size: 7.2pt;
+  letter-spacing: 0.05em;
+  color: var(--goutami-primary);
+  white-space: nowrap;
+}
+
+.footer-compact-llpin {
+  font-weight: 500;
+  font-size: 6.8pt;
+  letter-spacing: 0.04em;
+  color: var(--ink-secondary);
+  white-space: nowrap;
+}
+
+.footer-compact-right {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  text-align: right;
+  white-space: nowrap;
+  font-size: var(--footer-font-size);
+  color: var(--ink-secondary);
+}
+
+.footer-compact-row-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  color: var(--ink-tertiary);
+  font-size: var(--footer-font-size);
+  padding-top: 3px;
+  border-top: 0.5pt solid rgba(220, 224, 232, 0.7);
+}
+
+.footer-compact-office-label {
+  font-weight: 600;
+  color: var(--ink-secondary);
+  font-size: var(--footer-font-size);
+  white-space: nowrap;
+}
+
+.footer-compact-office-text {
+  color: var(--ink-tertiary);
+  font-size: var(--footer-font-size);
+  white-space: nowrap;
+}
+
+.footer-compact-bullet {
+  color: var(--ink-hairline);
+  font-size: 5.5pt;
+}
+/* Variant 4: Solid Full-Bleed Navy Bottom Accent Band */
+.footer-accent-band-v4 {
+  width: calc(100% + 30mm); /* full width across 15mm left/right padding */
+  margin-left: -15mm;
+  margin-right: -15mm;
+  margin-top: 8px;
+  height: 9mm;
+  background-color: var(--goutami-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15mm;
+  box-sizing: border-box;
+}
+
+.accent-band-text {
+  color: #ffffff;
+  font-size: 6.6pt;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Padding adjustment for Variant 4 footer body so spacing matches reference */
+.footer-variant4 .footer-content-body {
+  padding-bottom: 2mm;
+}
+
+/* ==========================================================================
+   Toolbar (Screen Only)
+   ========================================================================== */
+.editor-toolbar {
+  width: 100%;
+  background: #19182a;
+  color: #ffffff;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.toolbar-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.toolbar-brand-badge {
+  font-weight: 700;
+  font-size: 11pt;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.toolbar-doc-pill {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 8pt;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #d1d3d4;
+  white-space: nowrap;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.toolbar-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 6px 12px;
+  font-size: 8pt;
+  font-weight: 500;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.toolbar-btn.btn-primary {
+  background: #ffffff;
+  color: #242052;
+  font-weight: 600;
+  border-color: #ffffff;
+}
+
+.toolbar-btn.btn-primary:hover {
+  background: #f0f0f5;
+}
+
+.toolbar-btn.active {
+  background: #4a4580;
+  border-color: #908bc2;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Variant Selector Segmented Button Group */
+.variant-segmented-group {
+  display: flex;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.variant-segmented-btn {
+  background: transparent;
+  border: none;
+  color: #b5b3c4;
+  padding: 5px 12px;
+  font-size: 8pt;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.variant-segmented-btn:hover {
+  color: #ffffff;
+}
+
+.variant-segmented-btn.active {
+  background: #242052;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+@media screen and (max-width: 768px) {
+  .toolbar-doc-pill {
+    display: none;
+  }
+  .editor-toolbar {
+    padding: 8px 12px;
+  }
+}
