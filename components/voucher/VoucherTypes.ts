@@ -67,14 +67,15 @@ export function pxToMm(px: number): number {
 }
 
 // Default canonical layout — 210mm × 99mm Portrait 3-Up
-// Generous writing heights (7.0 - 7.2mm) with comfortable vertical clearance for pen writing
+// Default canonical layout — 210mm × 99mm Portrait 3-Up
+// Exact coordinates dragged and calibrated from user session yesterday
 export const DEFAULT_LAYOUT: LayoutMap = {
-  logo: { id: "logo", x: 6, y: 3.2, w: 15, h: 13 },
+  logo: { id: "logo", x: 2.56, y: 0, w: 18.5, h: 18 },
   companyBlock: { id: "companyBlock", x: 23, y: 3.2, w: 124, h: 13.5 },
-  titleBlock: { id: "titleBlock", x: 149, y: 3.2, w: 55, h: 13.5 },
+  titleBlock: { id: "titleBlock", x: 145.3, y: 2.14, w: 55, h: 13.5 },
   headerDivider: { id: "headerDivider", x: 6, y: 17.5, w: 198, h: 0.5 },
-  pvNumberBlock: { id: "pvNumberBlock", x: 6, y: 19.0, w: 65, h: 5.8 },
-  dateBlock: { id: "dateBlock", x: 154, y: 19.0, w: 50, h: 5.8 },
+  pvNumberBlock: { id: "pvNumberBlock", x: 101.25, y: 19.0, w: 65, h: 5.8 },
+  dateBlock: { id: "dateBlock", x: 122.78, y: 19.0, w: 50, h: 5.8 },
   paidToRow: { id: "paidToRow", x: 6, y: 25.8, w: 198, h: 7.0 },
   paymentModeRow: { id: "paymentModeRow", x: 6, y: 33.6, w: 198, h: 6.2 },
   byCashChequeRow: { id: "byCashChequeRow", x: 6, y: 40.6, w: 198, h: 7.2 },
@@ -102,9 +103,9 @@ export const ELEMENT_LABELS: Record<ElementId, string> = {
   receivedByBlock: "Received By (Tall Box)",
 };
 
-export const STORAGE_KEY_LAYOUT = "gowtami-realty-pv-layout-v1";
-export const STORAGE_KEY_DATA = "gowtami-realty-pv-data-v1";
-export const STORAGE_KEY_SERIAL = "gowtami-realty-pv-serial-v1";
+export const STORAGE_KEY_LAYOUT = "gowtami-realty-pv-layout-v2";
+export const STORAGE_KEY_DATA = "gowtami-realty-pv-data-v2";
+export const STORAGE_KEY_SERIAL = "gowtami-realty-pv-serial-v2";
 
 export const BLANK_DATA: VoucherData = {
   pvNumber: "",

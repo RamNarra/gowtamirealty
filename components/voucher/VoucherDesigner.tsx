@@ -111,6 +111,9 @@ export default function VoucherDesigner() {
   useEffect(() => {
     // Clear old localStorage keys to ensure clean reset and start from 1
     try {
+      localStorage.removeItem("gowtami-realty-pv-layout-v1");
+      localStorage.removeItem("gowtami-realty-pv-data-v1");
+      localStorage.removeItem("gowtami-realty-pv-serial-v1");
       localStorage.removeItem("goutami-pv-next-serial-portrait-v1");
       localStorage.removeItem("goutami-pv-next-serial-portrait-v2");
       localStorage.removeItem("goutami-pv-next-serial-portrait-v3");
@@ -299,11 +302,14 @@ export default function VoucherDesigner() {
           WebkitBackdropFilter: "blur(12px)",
           border: "1px solid rgba(255, 255, 255, 0.15)",
           borderRadius: 10,
-          padding: "8px 18px",
+          padding: "8px 16px",
           marginBottom: 18,
           display: "flex",
           alignItems: "center",
-          gap: 14,
+          justifyContent: "center",
+          flexWrap: "wrap",
+          maxWidth: "calc(100vw - 32px)",
+          gap: 10,
           boxShadow: "0 10px 30px rgba(0, 0, 0, 0.5)",
           color: "#fff",
         }}
@@ -488,9 +494,9 @@ export default function VoucherDesigner() {
               cursor: "pointer",
               boxShadow: "0 1px 4px rgba(37,99,235,0.4)",
             }}
-            title="Advance to next 3 vouchers (auto-advances after print too)"
+            title={`Advance to next ${printBatchCount * 3} vouchers (auto-advances after print too)`}
           >
-            + Next 3
+            + Next {printBatchCount * 3}
           </button>
           <button
             onClick={() => handleSetStartSerial(1)}
@@ -503,7 +509,7 @@ export default function VoucherDesigner() {
               padding: "3px 6px",
               cursor: "pointer",
             }}
-            title="Reset start back to GI - 000001"
+            title="Reset start back to GR - 000001"
           >
             ↺ 1
           </button>
