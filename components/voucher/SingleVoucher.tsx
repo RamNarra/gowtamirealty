@@ -323,7 +323,7 @@ export const SingleVoucher: React.FC<SingleVoucherProps> = ({
             textTransform: "uppercase",
           }}
         >
-          Gowtami Realty
+          Gowtami Realty LLP
         </div>
         <div
           style={{

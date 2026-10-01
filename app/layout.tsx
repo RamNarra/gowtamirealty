@@ -10,8 +10,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Gowtami Realty | Payment Voucher",
-  description: "Payment Voucher Generation & Management for Gowtami Realty.",
+  title: "Gowtami Realty LLP | Payment Voucher",
+  description: "Official Payment Voucher Generation & Management for Gowtami Realty LLP.",
   icons: {
     icon: "/goutami-logo.svg",
     shortcut: "/goutami-logo.svg",

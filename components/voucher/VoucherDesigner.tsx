@@ -334,10 +334,30 @@ export default function VoucherDesigner() {
             <line x1="8" y1="21" x2="16" y2="21" />
             <line x1="12" y1="17" x2="12" y2="21" />
           </svg>
-          A4 Voucher Optimizer &bull; Gowtami Realty
+          A4 Voucher Optimizer &bull; Gowtami Realty LLP
         </h1>
 
         <div style={{ width: 1, height: 20, background: "rgba(255, 255, 255, 0.2)" }} />
+
+        {/* Download Pre-generated PDF Button */}
+        <a
+          href="/gowtami-realty-pv-1-to-9.pdf"
+          download="gowtami-realty-pv-1-to-9.pdf"
+          style={{
+            ...primaryBtnStyle,
+            background: "#059669",
+            boxShadow: "0 2px 8px rgba(5, 150, 105, 0.4)",
+            textDecoration: "none",
+          }}
+          title="Direct download high-resolution vector PDF (3 Pages, PV 1 to 9)"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download PDF (PV 1-9)
+        </a>
 
         {/* Print Button (Ctrl+P) */}
         <button
