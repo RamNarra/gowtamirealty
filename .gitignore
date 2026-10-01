@@ -11,3 +11,4 @@ dist/
 graphify-out/
 .agents/
 tsconfig.tsbuildinfo
+.env*
