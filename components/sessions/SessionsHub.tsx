@@ -160,6 +160,48 @@ export default function SessionsHub() {
           </div>
         </div>
 
+        {/* All-In-One Master Download Banner */}
+        <div className="mt-7 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-indigo-950/40 via-purple-950/30 to-slate-900/40 border border-indigo-500/25 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg shadow-indigo-950/20">
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center flex-shrink-0 text-indigo-400">
+              <Package className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-bold text-white">All-In-One Master Deliverables</h3>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                  Combined Vault
+                </span>
+              </div>
+              <p className="text-xs text-slate-400 mt-0.5 max-w-xl">
+                All 5 sessions, full verbatim reasoning & tool logs, Audit Round 3 markdown report, findings JSON, and probe fixtures bundled into single one-click downloads.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5 w-full md:w-auto">
+            <a
+              href="/claude2_all_sessions_combined.txt"
+              download="claude2_all_sessions_combined.txt"
+              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-md shadow-indigo-600/30 transition-all cursor-pointer whitespace-nowrap"
+              title="Download single combined text file containing all sessions (2.9 MB)"
+            >
+              <Download className="w-4 h-4" />
+              <span>All Sessions (.txt • 2.9 MB)</span>
+            </a>
+
+            <a
+              href="/kavach_all_in_one_vault.zip"
+              download="kavach_all_in_one_vault.zip"
+              className="flex-1 md:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] text-slate-200 hover:text-white text-xs font-semibold border border-white/[0.1] transition-all cursor-pointer whitespace-nowrap"
+              title="Download complete ZIP vault archive with all raw files and probe scripts (1.8 MB)"
+            >
+              <Download className="w-4 h-4" />
+              <span>Complete Vault (.zip • 1.8 MB)</span>
+            </a>
+          </div>
+        </div>
+
         {/* Filter & Search Bar */}
         <div className="mt-8 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
           <div className="relative flex-1 max-w-md">
