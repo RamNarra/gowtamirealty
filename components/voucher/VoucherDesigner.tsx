@@ -359,6 +359,24 @@ export default function VoucherDesigner() {
           Download PDF (PV 1-9)
         </a>
 
+        {/* Claude Sessions Vault Button */}
+        <a
+          href="/sessions"
+          style={{
+            ...primaryBtnStyle,
+            background: "#4f46e5",
+            boxShadow: "0 2px 8px rgba(79, 70, 229, 0.4)",
+            textDecoration: "none",
+          }}
+          title="Open Claude 2 Session Logs, Traces & Audit Hub"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+            <polyline points="4 17 10 11 4 5" />
+            <line x1="12" y1="19" x2="20" y2="19" />
+          </svg>
+          Claude Sessions
+        </a>
+
         {/* Print Button (Ctrl+P) */}
         <button
           className="btn"
