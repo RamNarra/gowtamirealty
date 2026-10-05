@@ -27,6 +27,37 @@ export interface SessionRecord {
 
 export const CLAUDE_SESSIONS: SessionRecord[] = [
   {
+    "id": "kavach-audit-challenger",
+    "sessionId": "d496e9f3-cbd8-4084-bc87-2a931f4503ee",
+    "remoteBridgeId": "cse_01EmLtG1EyKA3tREek2VSM2d",
+    "title": "KAVACH 2.0 Audit #2 (Challenger & Falsification) [Truncated / AUP Refusal]",
+    "category": "AUDIT",
+    "badgeColor": "rose",
+    "timestamp": "2026-10-05T07:50:43.113Z",
+    "formattedDate": "Oct 5, 2026 \u2022 1:20 PM IST",
+    "timeAgo": "Latest (1:20 PM)",
+    "model": "claude-opus-5-5",
+    "workingDir": "/home/p4cketsn1ff3r/Projects/Active/KAVACH_AI",
+    "stepCount": 43,
+    "thinkingBlocksCount": 16,
+    "fileSize": "76 KB",
+    "downloadUrl": "/claude2_audit_challenger_session.txt",
+    "summary": "Forensic challenger audit attempting to falsify Audit #1 findings and test sandbox runtime boundaries. Executed 17 tools testing bubblewrap, Docker appliances, and JADX JVM security permissions. Abruptly truncated by Anthropic server-side AUP guardrails ([cyber] category refusal on Opus 5.5).",
+    "highlights": [
+      "Anthropic [cyber] AUP Refusal: Blocked by upstream Opus 5.5 safeguards on request ID req_011CfiicJt43ZUFqNKJ4JYwR.",
+      "JADX Sandbox JVM Failure: Identified java.lang.InternalError loading java.security file missing from bwrap sandbox mounts.",
+      "Appliance Container Gap: Analyzed deploy/Dockerfile.appliance missing bwrap and api service packages.",
+      "Turn Execution: Completed 17 tool calls and 16 thinking blocks before refusal cut off output."
+    ],
+    "verificationStats": [
+      {
+        "suite": "STATUS",
+        "notes": "Truncated mid-execution by upstream Anthropic safety classifier"
+      }
+    ],
+    "finalOutputText": "API Error: Opus 5.5's safeguards flagged this session (https://www.anthropic.com/legal/aup).\n\nDetails: `[cyber]`\nRequest ID: req_011CfiicJt43ZUFqNKJ4JYwR\n\nStop Reason: refusal\nCategory: cyber\nExplanation: This request triggered restrictions on violative cyber content and was blocked under Anthropic's Usage Policy.\n\nPreceding Context: Opus was debugging JADX inside bubblewrap (`bwrap`) sandbox and inspecting `/etc/java-25-openjdk/security/java.security` after encountering `java.lang.InternalError: Error loading java.security file`. The combination of prompt phrasing (\"adversarial red-team falsification\", \"malware disassembly\", and JVM security policy inspection) triggered Anthropic's automated cyber policy filter."
+  },
+  {
     "id": "kavach-brutal-audit",
     "sessionId": "d496e9f3-cbd8-4084-bc87-2a931f4503ee",
     "remoteBridgeId": "cse_01EmLtG1EyKA3tREek2VSM2d",
