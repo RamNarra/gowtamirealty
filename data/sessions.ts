@@ -87,6 +87,14 @@ export const CLAUDE_SESSIONS: SessionRecord[] = [
       }
     ],
     "artifacts": [
+        {
+          "title": "Complete All-In-One Session & Artifacts Master",
+          "filename": "claude2_session4_all_in_one_complete.txt",
+          "url": "/claude2_session4_all_in_one_complete.txt",
+          "size": "800 KB",
+          "type": "bundle",
+          "description": "Single unified .txt containing the entire verbose session trace (prompt, 86 thinking blocks, 129 tool calls/outputs) PLUS full verbatim content of all 13 generated files & probe scripts."
+        },
       {
         "title": "Audit Round 3 Complete Bundle",
         "filename": "kavach_audit_round3_bundle.zip",
