@@ -15,7 +15,8 @@ import {
   Database, 
   Clock, 
   FileText, 
-  Activity
+  Activity,
+  Package
 } from "lucide-react";
 
 export default function SessionsHub() {
@@ -262,6 +263,39 @@ export default function SessionsHub() {
                       </div>
                     ))}
                   </div>
+
+                  {/* Generated Artifacts & Bundles */}
+                  {session.artifacts && session.artifacts.length > 0 && (
+                    <div className="mt-4 pt-3.5 border-t border-white/[0.04]">
+                      <div className="flex items-center gap-2 mb-2.5 text-xs font-semibold text-slate-300">
+                        <Package className="w-3.5 h-3.5 text-indigo-400" />
+                        <span>Generated Files & Evidence Artifacts</span>
+                        <span className="text-[10px] text-slate-500 font-mono">({session.artifacts.length} files)</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+                        {session.artifacts.map((art, aIdx) => (
+                          <a
+                            key={aIdx}
+                            href={art.url}
+                            download={art.filename}
+                            className="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] hover:bg-white/[0.06] border border-white/[0.05] hover:border-indigo-500/40 transition-all group"
+                            title={art.description}
+                          >
+                            <div className="min-w-0 pr-2">
+                              <div className="text-[11px] font-medium text-slate-200 truncate group-hover:text-indigo-300">
+                                {art.title}
+                              </div>
+                              <div className="text-[10px] text-slate-400 font-mono flex items-center gap-1.5 mt-0.5">
+                                <span className="uppercase text-[9px] px-1 py-0.5 bg-white/[0.06] rounded text-slate-300 font-semibold">{art.type}</span>
+                                <span>{art.size}</span>
+                              </div>
+                            </div>
+                            <Download className="w-3.5 h-3.5 text-slate-500 group-hover:text-indigo-400 flex-shrink-0 transition-colors" />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* Execution Metrics & Quick Download Actions */}
                   <div className="mt-5 pt-4 border-t border-white/[0.04] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">

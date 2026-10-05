@@ -1,3 +1,12 @@
+export interface SessionArtifact {
+  title: string;
+  filename: string;
+  url: string;
+  size: string;
+  type: 'trace' | 'report' | 'data' | 'bundle' | 'code';
+  description?: string;
+}
+
 export interface SessionRecord {
   id: string;
   sessionId: string;
@@ -16,6 +25,7 @@ export interface SessionRecord {
   downloadUrl: string;
   summary: string;
   highlights: string[];
+  artifacts?: SessionArtifact[];
   verificationStats?: {
     suite: string;
     passed?: number;
@@ -26,6 +36,93 @@ export interface SessionRecord {
 }
 
 export const CLAUDE_SESSIONS: SessionRecord[] = [
+  {
+    "id": "kavach-audit-round-3",
+    "sessionId": "4bf6ee89-7281-480c-96b6-de0c896cf905",
+    "remoteBridgeId": "cse_01EmLtG1EyKA3tREek2VSM2d",
+    "title": "KAVACH 2.0 Audit Round 3 (Engineering Assurance & Evidence Validation)",
+    "category": "AUDIT",
+    "badgeColor": "rose",
+    "timestamp": "2026-10-05T10:20:43.246Z",
+    "formattedDate": "Oct 5, 2026 \u2022 3:50 PM IST",
+    "timeAgo": "Latest (3:50 PM)",
+    "model": "claude-opus-5-5",
+    "workingDir": "/home/p4cketsn1ff3r/Projects/Active/KAVACH_AI",
+    "stepCount": 727,
+    "thinkingBlocksCount": 86,
+    "fileSize": "590 KB",
+    "downloadUrl": "/claude2_audit_round3_session.txt",
+    "summary": "Rigorous empirical engineering assurance audit measuring actual runtime behavior across 17 live Qwen3.5-4B runs. Validated ground-truth code blindness, sandbox JADX JVM failures, false-evidence injection on benign photos, ungrounded findings (57% unsupported), and ledger tamper resilience. Final Score: 24/100.",
+    "highlights": [
+      "Model Code Blindness: Across 17 live runs, model saw 0 facts from analyzed APKs (~75% prompt is fixed boilerplate/counts).",
+      "JADX Sandbox JVM Allocation Failure: JADX fails at startup due to 1.5GB bwrap cgroup limit and missing class space.",
+      "False Evidence on Benign Media: Normal JPEG photo triggers HIDDEN_PAYLOAD CONFIRMED and MEDIUM 60 score.",
+      "Failed / Incomplete Runs Report SAFE: Unreachable model or interrupted runs report SAFE / BENIGN with no malicious indicators.",
+      "Storage Layer 100% Solid: Content-hash addressing and per-run isolation verified resilient across all tests."
+    ],
+    "verificationStats": [
+      {
+        "suite": "AUDIT SCORE",
+        "passed": 24,
+        "failed": 76,
+        "notes": "24/100 (down from 31/100 after measuring actual runtime execution)"
+      },
+      {
+        "suite": "LIVE QWEN RUNS",
+        "passed": 17,
+        "failed": 0,
+        "notes": "17 live runs analyzed for prompt inspection and token breakdown"
+      },
+      {
+        "suite": "UNIT & SECURITY",
+        "passed": 276,
+        "failed": 0,
+        "notes": "276 unit/contract/security tests passing on HEAD 78d39d0"
+      },
+      {
+        "suite": "TOOL CALLS",
+        "passed": 129,
+        "failed": 0,
+        "notes": "129 tool executions across sandbox, db probes, and prompt inspections"
+      }
+    ],
+    "artifacts": [
+      {
+        "title": "Audit Round 3 Complete Bundle",
+        "filename": "kavach_audit_round3_bundle.zip",
+        "url": "/kavach_audit_round3_bundle.zip",
+        "size": "49 KB",
+        "type": "bundle",
+        "description": "Complete ZIP archive containing full markdown report, findings JSON, and all 11 probe scripts."
+      },
+      {
+        "title": "Audit Round 3 Markdown Report",
+        "filename": "KAVACH_2.0_AUDIT_ROUND3_2026-10-05.md",
+        "url": "/KAVACH_2.0_AUDIT_ROUND3_2026-10-05.md",
+        "size": "47 KB",
+        "type": "report",
+        "description": "Full comprehensive engineering assurance report with 5 core questions, 10 next moves, and 16 pass/fail criteria."
+      },
+      {
+        "title": "Audit Round 3 Findings Database",
+        "filename": "KAVACH_2.0_AUDIT_ROUND3_FINDINGS_2026-10-05.json",
+        "url": "/KAVACH_2.0_AUDIT_ROUND3_FINDINGS_2026-10-05.json",
+        "size": "33 KB",
+        "type": "data",
+        "description": "Structured JSON containing 18 new KAV3 findings plus 16 rechecked Audit #1 findings with line citations."
+      },
+      {
+        "title": "Raw Session Verbatim Trace",
+        "filename": "claude2_audit_round3_session.txt",
+        "url": "/claude2_audit_round3_session.txt",
+        "size": "590 KB",
+        "type": "trace",
+        "description": "Full verbatim transcript of Session 4 including 86 thinking blocks, 129 tool calls, and outputs."
+      }
+    ],
+    "finalOutputText": "Round 3 audit is done. Short version: KAVACH does not analyze app content today. Score is **24/100**, down from Audit #1's 31. Everything below was measured by running the system; none of it is from reading code alone.\n\n**State:** HEAD is `78d39d0`, the same commit Audit #1 reviewed. It is 6 commits ahead of `origin/master` and 0 behind, so none of the 2.0 code has been pushed or run in CI. 276 unit/contract/security tests pass. The PostgreSQL tests did not run: the docker daemon was off and starting it needs `sudo`. All PostgreSQL-specific claims are marked UNTESTED.\n\n**Your five questions:**\n\n1. **Does the model receive real code or evidence? No.**\n   - Across 17 live runs with Qwen3.5-4B, the model saw 0 facts from the APKs it was analyzing.\n   - About 1,350 of each ~1,800-token prompt is fixed text (system prompt and tool definitions). The rest is counts like \"Found 50 occurrences\".\n   - JADX, the only tool that shows code, never succeeds. The sandbox caps memory at 1.5 GB, and the JVM fails at startup: `Could not allocate compressed class space`. The tool lookup also doesn't search the folder where JADX is installed.\n\n2. **Does the agent beat a deterministic baseline? No.**\n   - Triage-only, a fixed tool sequence and the agent all produce the same report on InsecureBankv2: MEDIUM 60, driven by the `SEND_SMS` permission alone.\n   - The fixed sequence found 48 facts; the agent found at most 3. The report includes none of them.\n   - A supervisor rule stops any run after 4 tool calls in a row that produce no evidence. Search tools never produce evidence, so all 17 live runs ended PARTIAL after about 4 calls.\n\n3. **Are conclusions grounded in evidence? No.** I reproduced these safely with benign test files:\n   - **Ordinary photo:** a benign app plus a normal JPEG gives `HIDDEN_PAYLOAD CONFIRMED` and MEDIUM 60. The \"payload\" is the app's own `classes.dex`.\n   - **Password-protected text file:** the repair fails, yet the report lists \"Container Evasion Repaired (HIGH)\" twice.\n   - **Failed or unfinished runs:** a run where the model was unreachable, and runs still queued or running, all report **\"SAFE / BENIGN: No malicious indicators detected\"**.\n   - **Risk scoring:** one high-severity permission scores 60. Code that loads DEX at runtime and runs shell commands scores 6 (SAFE).\n   - Every link between a finding and the tool run behind it exists, but 0% of those links actually support the claim made. 57% of the report's claims are unsupported.\n\n4. **Is it reproducible and safe?**\n   - **Reproducible only because it's blind.** The 5 repeat runs disagree on which tools they call but produce identical reports. The photo false-confirmation appears whenever the model happens to call the decoder tool.\n   - **Unsafe on untrusted input:**\n     - The API freezes while files are parsed: 9.7 s for cross-referencing a 3.5 MB APK, and 4.9 s for one regex on 27 characters.\n     - A 204 KB zip adds 227 MB of memory.\n     - 88 KB of fake headers produce 1999 \"HIGH\" findings.\n   - **The ledger is not tamper-proof.** It still verifies as valid after the last events are deleted, after a full rewrite with recomputed hashes, and after a second \"run finished\" event.\n   - **No protection against a second server instance.** In a simulation, a second instance marked a live run as interrupted while the first kept writing to it.\n   - **Model identity isn't recorded.** The ledger stores the configured model name, not what the server actually reports, so any model could be swapped in undetected.\n\n5. **Would a real Android analyst find it useful? Not yet.** These would end an evaluation on first sight:\n   - \"MEDIUM RISK\u2026 weak cryptographic configurations\" from one permission, with no crypto evidence at all.\n   - \"Hidden payload confirmed\" on a photo.\n   - \"SAFE\" on a failed run.\n   - Both CTF apps built around staged payload loading scored SAFE 0.\n\n   What is genuinely solid: the storage layer. Stored files are addressed by their content hash, isolated per run, and re-checked on every read. Every check I threw at that held.\n\n**Audit #1 findings:** all 16 critical/high findings are still present. Five turned out worse than reported. Two were narrowed: the repair \"verified\" evidence on a valid APK, and the missing-ID provenance check. Several of its line-number citations point to lines that don't exist.\n\n**Competitors:** jadx-ai-mcp and the Claude reverse-engineering skills already give the model real code to read. Microsoft's Project Ire publishes precision and recall numbers. MalEval is the benchmark KAVACH should be measured on. No tool I surveyed combines a tamper-evident ledger with claims tied to specific code, which is the gap KAVACH could own.\n\n**Top next moves:**\n1. Never report SAFE for a run that didn't complete.\n2. Fix JADX in the sandbox.\n3. Show the model the strings, cross-references and code the tools find, bounded and marked as untrusted.\n4. Tie each confirmation to the specific file or entry it names.\n5. Run the same three-way comparison on a ground-truth benchmark as a CI job.\n\nThe report has the rest of the 10 moves (with tests and pass criteria) and 16 pass/fail criteria for a 100/100 score. Nothing was committed; `AUDIT/` is still untracked.\n\nFiles are in `AUDIT/`:\n- KAVACH_2.0_AUDIT_ROUND3_2026-10-05.md\n- KAVACH_2.0_AUDIT_ROUND3_FINDINGS_2026-10-05.json \u2014 18 new KAV3 findings plus the 16 rechecked ones\n- round3_probes/ \u2014 the probe scripts, fixture scripts and raw outputs (run from `backend/` with `.venv/bin/python`)"
+  },
+
   {
     "id": "kavach-audit-challenger",
     "sessionId": "d496e9f3-cbd8-4084-bc87-2a931f4503ee",
